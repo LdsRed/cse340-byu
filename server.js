@@ -25,7 +25,7 @@ app.set("layout", "./layouts/layout")
 
 
 
-app.use(static)
+app.use(express.static('public'));
 
 /* ***********************
  * Local Server Information
@@ -35,7 +35,7 @@ const port = process.env.PORT
 const host = process.env.HOST
 
 
-// Index Rout 
+// Index Rout
 app.get("/", function(req, res){
   res.render("index", {title: "Home"})
 })
