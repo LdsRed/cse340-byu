@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
 
 <%- include('../partials/head') %>
 
@@ -14,97 +13,12 @@
         <%- include('../partials/navigation') %>
     </div>
     
+    <div class="main-content">
+        <%- body %>
+    </div>
 
-    <main>
-        <section class="welcome">
-            <h2>Welcome to CSE Motors!</h2>
-            <div class="car-highlight">
-                <h3 class="car-title">DMC Dolorean</h3>
-                <ul class="car-features">
-                    <li>3 Cup holders</li>
-                    <li>Superman doors</li>
-                    <li>Fuzzy dice!</li>
-                </ul>
-                <button class="btn">Own Today</button>
-            </div>
-            <div class="welcome-img-container">
-                
-                <picture>
-                    <source media="(max-width: 500px)" srcset="/images/vehicles/delorean-tn.jpg"> 
-                    <img src="/images/vehicles/delorean.jpg" alt="DMC Dolorean" class="car-image">
-               </picture>
-            </div>
-
-            
-        </section>
-
-        <div class="container-review-upgrade">
-        
-            <section class="reviews">
-                <h3>DMC Dolorean Reviews</h3>
-                <ul>
-                    <li>"So fast it's almost like traveling in time." (4/5)</li>
-                    <li>"Coolest ride on the road." (4/5)</li>
-                    <li>"I'm feeling McFly!" (5/5)</li>
-                    <li>"The most futuristic ride of our day." (4/5)</li>
-                    <li>"80's livin and I love it!" (5/5)</li>
-                </ul>
-            </section>
-
-            <section class="upgrades">
-                <h2>Dolorean Upgrades</h2>
-                <div class="upgrade-grid">
-                    <div class="upgrade-item">
-                        <div class="upgrade-image-container">
-                            <img src="/images/upgrades/flux-cap.png" alt="Flux Capacitor">
-                        </div>
-                        <p>Flux Capacitor</p>
-                    </div>
-                    <div class="upgrade-item">
-                        <div class="upgrade-image-container">
-                            <img src="/images/upgrades/flame.jpg" alt="Flame Decals">
-                        </div> 
-                        <p>Flame Decals</p>
-                    </div>
-                    <div class="upgrade-item">
-                        <div class="upgrade-image-container">
-                            <img src="/images/upgrades/bumper_sticker.jpg" alt="Bumper Stickers">
-                        </div>
-                        <p>Bumper Stickers</p>
-                    </div>
-                    <div class="upgrade-item">
-                        <div class="upgrade-image-container">
-                            <img src="/images/upgrades/hub-cap.jpg" alt="Hub Caps">
-                        </div>
-                        <p>Hub Caps</p>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-    </main>
-
-
-    <div class="footer-container"> 
+    <div class="footer-container">
         <%- include('../partials/footer') %>
     </div>
 </body>
-
-=======
-    <%- include('../partials/head') %>
-
-    <body>
-        <div id="wrapper">
-            <%- include('./partials/header') %>
-            <%- include('./partials/navigation') %>
-
-            <main>
-                <%- body %>
-            </main>
-
-            <%- include('./partials/footer') %>
-
-        </div>
-    </body>
->>>>>>> a32d44f (Updating database folder with Queries needed for this week activities)
 </html>
