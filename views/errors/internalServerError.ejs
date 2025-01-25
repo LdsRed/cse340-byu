@@ -1,0 +1,11 @@
+<%# Assignment 3, Task 3  %>
+<div class="error-container">
+    <% if(errorTitle) { %>
+    <h1><%= errorTitle %></h1>
+    <% } else {
+        res.redirect('/')
+    } %>
+
+    <p><%- internalErrorMessage %></p>
+    <a href="/">Return to Home view</a>
+</div>

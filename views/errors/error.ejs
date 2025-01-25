@@ -1,0 +1,11 @@
+<%# Assignment 3, Basic Error Handling activity %>
+<div class="error-container">
+    <% if(title) { %>
+    <h1><%= title %></h1>
+    <% } else { 
+        res.redirect('/')
+    } %>
+
+    <p><%- message %></p>
+    <a href="/">Return to Home view</a>
+</div>

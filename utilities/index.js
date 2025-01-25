@@ -6,6 +6,7 @@ const Util = {}
  ************************** */
 Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications()
+  console.log(data);
   let list = "<ul>"
   list += '<li><a href="/" title="Home page">Home</a></li>'
   data.rows.forEach((row) => {
@@ -23,5 +24,67 @@ Util.getNav = async function (req, res, next) {
   list += "</ul>"
   return list
 }
+
+/* **************************************
+* Build the classification view HTML
+* ************************************ */
+Util.buildClassificationGrid = async function(data){
+  let grid
+  if(data.length > 0){
+    grid = '<ul id="inv-display">'
+    data.forEach(vehicle => {
+      grid += '<li>'
+      grid +=  '<a href="/inv/details/'+ vehicle.inv_id
+      + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model
+      + 'details"><img src="' + vehicle.inv_thumbnail
+      +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model
+      +' on CSE Motors" /></a>'
+      grid += '<div class="namePrice">'
+      grid += '<h2>'
+      grid += '<a href="/inv/details/' + vehicle.inv_id +'" title="View '
+      + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
+      + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
+      grid += '</h2>'
+      grid += '<span>$'
+      + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+      grid += '</div>'
+      grid += '</li>'
+    })
+    grid += '</ul>'
+  } else {
+    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+  }
+  return grid
+}
+
+Util.buildInventoryDetail = async function(vehicleData){
+    const price = parseFloat(vehicleData[0].inv_price).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+    const mileage = parseInt(vehicleData[0].inv_miles).toLocaleString()
+
+    return `
+            <div class= "vehicle-details">
+                  
+                  <div class="vehicle-image-container">
+                    <img src="${vehicleData[0].inv_image}" alt="Image of ${vehicleData[0].inv_make} ${vehicleData[0].inv_model}">
+                  </div>
+
+                  <div class="vehicle-description-container">
+                    <h2>${vehicleData[0].inv_make} ${vehicleData[0].inv_model} Details</h2>
+                     <p><strong>Year: </strong>${vehicleData[0].inv_year}</p>
+                     <p><strong>Price: </strong>${price}</p>
+                     <p><strong>Mileage: </strong>${mileage}</p>
+                     <p><strong>Description: </strong>${vehicleData[0].inv_description}</p>
+                  </div>
+            </div>`
+            
+}
+
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for
+ * General Error Handling
+ **************************************** */
+
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
 module.exports = Util

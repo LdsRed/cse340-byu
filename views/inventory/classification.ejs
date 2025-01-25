@@ -1,0 +1,13 @@
+<div class="classification-container">
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+    res.redirct('/')
+} %>
+
+
+<%# message() %>
+
+<%- grid %>
+
+</div>
