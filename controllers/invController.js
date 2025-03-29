@@ -56,7 +56,7 @@ invCont.buildVehicleManagementView = async function(req, res, next){
     try{
         res.render("./inventory/management", {
             title: "Vehicle Management",
-            messages: req.flash(),
+            message: req.flash(),
             errors: null,
             nav,
         })
@@ -72,7 +72,7 @@ invCont.buildAddClassificationView = async function(req, res, next) {
     try {
         res.render("./inventory/add-classification", {
             title: "Add Classification",
-            messages: req.flash(),
+            messages: null,
             errors: null,
             nav,
         })
@@ -86,25 +86,18 @@ invCont.addClassification = async function(req, res, next){
     let nav = await utilities.getNav();
 
     try {
-        const { classification_name } = req.body;
         // Insert the new Classification to the DB
-        const result = await invModel.addNewVehicleClassification(classification_name);
-
-        if(result){
+            await invModel.addNewVehicleClassification(req.body.classification_name);
             req.flash("success", "The new Classification was added successfully!" );
-            res.redirect("/inv/");
-        } else {
-            req.flash("error", "The new Classification could not be added. Please try again.");
-            res.render("./inventory/add-classification", {
-                title: "Add Classification",
-                messages: req.flash(),
-                errors: null,
-                nav,
-            })
-        }
-
+            res.redirect("/inv/")
     } catch (error) {
-        next(error);
+        req.flash("error", "The new Classification could not be added. Please try again.");
+        res.render("./inventory/add-classification", {
+            title: "Add Classification",
+            message: req.flash(),
+            errors: null,
+            nav,
+        })
     }
 }
 
@@ -120,7 +113,7 @@ invCont.buildAddVehicleInventoryView = async function(req, res, next) {
         res.render("./inventory/add-inventory", {
             title: "Add Vehicle Inventory",
             classificationList,
-            messages: req.flash(),
+            message: req.flash(),
             errors: null,
             nav,
             // All fields must be initialized to empty strings
@@ -145,46 +138,30 @@ invCont.addInventory = async function(req, res, next){
 
     try {
 
-        const {
-            inv_make,
-            inv_model,
-            inv_year,
-            inv_description,
-            inv_image,
-            inv_thumbnail,
-            inv_price,
-            inv_miles,
-            inv_color,
-            classification_id
-        } = req.body;
-
-        const result = await invModel.addNewVehicleInventory({
-            inv_make,
-            inv_model,
-            inv_year,
-            inv_description,
-            inv_image,
-            inv_thumbnail,
-            inv_price,
-            inv_miles,
-            inv_color,
-            classification_id
-        });
-
-        if(result){
-            req.flash("Success", "Inventory was added successfully!");
-            return res.redirect("/inv/")
-        }else {
-            req.flash("error", "Failed to add inventory. Please try again.");
-            return res.render("./inventory/add-inventory", {
-                title: "Add Vehicle Inventory",
-                messages: req.flash(),
-                nav,
-            })
-        }
+         await invModel.addNewVehicleInventory(req.body);
+         req.flash("success", "The new vehicle was added successfully!");
+         res.redirect("/inv/");
 
     }catch (error){
-        next(error);
+        req.flash("error", "The new vehicle could not be added. Please try again.");
+        let classificationList = await utilities.buildClassificationList(req.body.classification_id);
+        res.render("./inventory/add-inventory", {
+            title: "Add Vehicle Inventory",
+            classificationList,
+            message: {type: "error", message: "The new vehicle could not be added. Please try again."},
+            errors: null,
+            nav: await utilities.getNav(),
+            inv_make: req.body.inv_make,
+            inv_model: req.body.inv_model,
+            inv_year: req.body.inv_year,
+            inv_description: req.body.inv_description,
+            inv_image: req.body.inv_image,
+            inv_thumbnail: req.body.inv_thumbnail,
+            inv_price: req.body.inv_price,
+            inv_miles: req.body.inv_miles,
+            inv_color: req.body.inv_color,
+            classification_id: req.body.classification_id
+        })
     }
 }
 

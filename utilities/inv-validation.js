@@ -21,18 +21,17 @@ invValidator.classificationRules = () => {
 invValidator.validateClassification = async  (req, res, next)=>{
 
     const errors = validationResult(req);
-    if(errors.isEmpty()){
-        return next();
+    if(!errors.isEmpty()){
+        return res.render("inventory/add-classification", {
+            title: "Add Classification",
+            errors: errors.array(),
+            message: req.flash("error", "Please correct the errors below"),
+            nav: await utilities.getNav(),
+            classification_name: req.body.classification_name
+        })
     }
+    next();
 
-    req.flash("error", "Please correct the errors below")
-    res.render("inventory/add-classification", {
-        title: "Add Classification",
-        errors: errors.array(),
-        messages: req.flash(),
-        nav: await utilities.getNav()
-
-    })
 }
 
 
@@ -43,8 +42,7 @@ invValidator.inventoryRules = () => {
 
         body("inv_make")
             .trim()
-            .notEmpty()
-            .withMessage("Make is required")
+            .notEmpty().withMessage("Make is required")
             .escape(),
         body("inv_model")
             .trim()
@@ -52,6 +50,7 @@ invValidator.inventoryRules = () => {
             .isLength({min: 3}).withMessage("Model must be at least 3 characters")
             .escape(),
         body("inv_year")
+            .notEmpty().withMessage("Year is required")
             .isInt({
                 min: 1900,
                 max: new Date().getFullYear() + 1
@@ -77,29 +76,46 @@ invValidator.inventoryRules = () => {
 
         body("classification_id")
             .notEmpty().withMessage("Classification is required"),
-    ]
-}
+    ];
+};
 
 
 
-invValidator.validateInventory = (req, res, next) => {
+invValidator.validateInventory = async (req, res, next) => {
 
     const errors = validationResult(req);
 
-    if (errors.isEmpty()) {
-        return next();
+    if(!errors.isEmpty()) {
+        let classificationList;
+
+        try {
+            classificationList = await utilities.buildClassificationList(req.body.classification_id)
+        } catch (error) {
+            classificationList = await utilities.buildClassificationList();
+        }
+
+        // Prepare view data with sticky form values
+        const viewData = {
+            title: "Add Inventory",
+            nav: await utilities.getNav(),
+            errors: errors.array(),
+            message: null,
+            classificationList,
+            inv_make: req.body.inv_make,
+            inv_model: req.body.inv_model,
+            inv_year: req.body.inv_year,
+            inv_description: req.body.inv_description,
+            inv_image: req.body.inv_image || "/images/vehicles/no-image.png",
+            inv_thumbnail: req.body.inv_thumbnail || "/images/vehicles/no-image-tn.png",
+            inv_price: req.body.inv_price,
+            inv_miles: req.body.inv_miles,
+            inv_color: req.body.inv_color,
+            classification_id: req.body.classification_id
+        };
+
+        return res.render("./inventory/add-inventory", viewData);
     }
-
-       const errorMessages = errors.array().map(error => error.msg);
-    req.flash('error', 'There were errors in the form:');
-
-    res.render('inventory/add-inventory', {
-        title: 'Add Inventory',
-        errors: errors.array(),
-        messages: req.flash(),
-        ...req.body,
-        classificationList: res.locals.classificationList || ''
-    });
+    next();
 }
 
 

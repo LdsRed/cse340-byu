@@ -26,7 +26,7 @@ router.get("/add-classification", handleErrors(invController.buildAddClassificat
 
 // Add a new classification
 router.post("/add-classification",
-    classificationRules,
+    classificationRules(),
     validateClassification,
     handleErrors(invController.addClassification));
 
@@ -35,7 +35,7 @@ router.get("/add-inventory", handleErrors(invController.buildAddVehicleInventory
 
 // Add a new inventory
 router.post("/add-inventory",
-    inventoryRules,
+    inventoryRules(),
     validateInventory,
     handleErrors(invController.addInventory));
 

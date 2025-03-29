@@ -459,8 +459,8 @@ main, .header, footer, .navbar{
   text-align: center;
   background-color: #fff;
   max-width: 1200px;
+  height:70vh;
   margin: 0 auto;
-  height: 60vh;
 }
 
 .inv-management-container h1, .add-classification-container h1{
@@ -566,6 +566,46 @@ main, .header, footer, .navbar{
 
 
 
+/************* Utilities **************/
+.spacing {
+  margin: 20px;
+}
+/*********** Error Message **************/
+
+.alert {
+  padding: 10px;
+  border-radius: 4px;
+  border: solid 1px #333;
+  background-color: #f8d7da;
+  width: 300px;
+  margin: 0 auto;
+}
+.alert ul {
+  list-style-type:none;
+  margin-right: 0;
+}
+
+.alert-danger {
+  color: #721c24;
+}
+
+.flash-message {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+}
+
+.flash-message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.flash-message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
 
 /********** Footer ***************/
 
@@ -675,3 +715,5 @@ footer a:hover {
     width: 50%;
   }
 }
+
+
