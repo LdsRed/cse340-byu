@@ -29,8 +29,9 @@
 }
 
 .account-link {
-  font-size: 14px;
-  color: #007BFF;
+  font-size: 15px;
+  color: #a4b925;
+  font-family: Arial, sans-serif;
 }
 
 .account-link a {
@@ -59,8 +60,8 @@
 .navbar a {
   color: #fff;
   text-decoration: none;
-  font-size: 14px; 
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 /************* Body *****************/
@@ -256,10 +257,298 @@ main, .header, footer, .navbar{
 
 .vehicle-image-container img{
 
-  max-width: 100%; 
-  height: auto; 
- }
+  max-width: 100%;
+  height: auto;
+}
 
+/************** Login view ***************/
+.login-container {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.login-container h2 {
+  text-align: center;
+}
+
+.login-form {
+  background-color: #a4b925;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(128, 128, 128, 0.5);
+}
+
+.form-line-division {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.form-group input {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+
+.form-group label {
+  margin-bottom: 10px;
+}
+
+.login-btn {
+  display: flex;
+  justify-content: center;
+}
+.login-btn button{
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  width: 150px;
+}
+
+.form-footer {
+  margin: 0;
+  padding: 0;
+}
+
+.form-footer a {
+  color:black;
+  font-weight: bold;
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container input[type="password"],
+.password-container input[type="text"] {
+    width: 100%;
+    padding-right: 35px; /* Space for the eye icon */
+}
+
+.password-toggle {
+    position: absolute;
+    right: -40px;
+    top: 55%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.password-toggle img {
+  width: 30%;
+}
+
+/************** Registration view ***************/
+.registration-container {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.registration-container h2 {
+  text-align: center;
+}
+
+.registration-form {
+  background-color: #a4b925;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(128, 128, 128, 0.5);
+}
+
+.form-line-division {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.form-group input {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+
+.form-group label {
+  margin-bottom: 10px;
+}
+
+.register-btn {
+  display: flex;
+  justify-content: center;
+}
+.register-btn button{
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  width: 150px;
+}
+
+.form-footer {
+  margin: 0;
+  padding: 0;
+}
+
+.form-footer a {
+  color:black;
+  font-weight: bold;
+}
+
+
+.password-requirements {
+  padding: 10px;
+  margin: 10px 0;
+
+}
+
+.notice {
+  font-size: 15px;
+  color: #333;
+}
+
+.notice {
+  text-decoration: none;
+}
+
+/************** Management view ***************/
+.inv-management-container, .add-classification-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background-color: #fff;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 60vh;
+}
+
+.inv-management-container h1, .add-classification-container h1{
+  padding: 20px;
+}
+
+.management-links, .add-classification-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(128, 128, 128, 0.5);
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/************** Add Classification view ***************/
+.add-classification-form {
+  color: #fff;
+}
+
+.add-classification-form button {
+  cursor: pointer;
+}
+
+.classification-input {
+  margin: 10px;
+}
+
+
+/************** Add Inventory view ***************/
+
+.add-inventory-container {
+  background-color: #fff;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.add-inv-title {
+  text-align: center;
+  padding: 20px;
+}
+
+.add-vehicle-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  color: #fff;
+  background-color: #333;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(128, 128, 128, 0.5);
+  max-width: 350px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#classificationId {
+  margin-bottom: 10px;
+}
+
+.inv-form-control {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.inv-form-group{
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  max-width: 250px;
+  width: 100%;
+}
+
+.inv-form-group > * {
+  margin: 5px;
+}
+
+.add-vehicle-btn {
+  text-align: center ;
+}
+
+.add-vehicle-btn button {
+  cursor: pointer;
+}
 /********** Error view ***************/
 
 .error-container {
@@ -283,8 +572,19 @@ main, .header, footer, .navbar{
 footer {
   text-align: center;
   padding: 10px;
-  background-color: #fff;
+  background-color: #333;
   border-top: 1px solid #ddd;
+  color: #fff;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #a4b925;
+  font-weight: 700;
 }
 
 
@@ -305,7 +605,8 @@ footer {
   }
 
   .navbar a:hover {
-    color: #007BFF;
+    color: #a4b925;
+    font-weight: 700;
   }
 
   .welcome {

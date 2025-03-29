@@ -1,0 +1,16 @@
+<div class="inv-management-container">
+    <h1> <%- title %></h1>
+
+    <% if(messages.error) { %>
+        <div class="alert alert-danger"><%= messages.error%></div>
+    <% }%>
+    <% if(messages.success){ %>
+        <div class="alert alert-success"><%= messages.success%></div>
+    <% }%>
+
+
+    <div class="management-links">
+        <span ><a href="/inv/add-classification" class="btn">Add new classification</a></span>
+        <span > <a href="/inv/add-inventory" class="btn">Add new inventory</a></span>
+    </div>
+</div>`

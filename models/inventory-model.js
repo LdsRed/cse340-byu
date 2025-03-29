@@ -43,5 +43,69 @@ async function getVehicleById(inventory_id){
     
 }
 
+//
 
-module.exports = {getClassifications, getInventoryByClassificationId, getVehicleById}
+async function addNewVehicleClassification(classification_name){
+
+    const query = `INSERT INTO public.classification (classification_name) VALUES ($1) RETURNING *`;
+    const value = [classification_name];
+    try {
+        const result = await pool.query(query, value);
+        return result.rows[0];
+    } catch (error) {
+       console.error("Error adding new classification: ", error);
+       return false;
+    }
+}
+
+async function addNewVehicleInventory({
+    inv_make,
+    inv_mode,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id
+}){
+
+    try{
+        const query = `INSERT INTO public.inventory
+        (inv_make, inv_model, inv_year,
+         inv_description, inv_image, inv_thumbnail, 
+         inv_price, inv_miles, inv_color, classification_id)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`
+
+        const values = [
+            inv_make,
+            inv_mode,
+            inv_year,
+            inv_description,
+            inv_image,
+            inv_thumbnail,
+            inv_price,
+            inv_miles,
+            inv_color,
+            classification_id
+        ];
+
+        const result = pool.query(query, values);
+
+        return result.rowCount > 0 ? result.rows[0] : false;
+    }catch (error){
+        console.error("Error adding inventory: ", error);
+        return false;
+    }
+
+}
+
+
+
+module.exports = {
+    getClassifications,
+    getInventoryByClassificationId,
+    getVehicleById,
+    addNewVehicleClassification,
+    addNewVehicleInventory}
