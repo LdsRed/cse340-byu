@@ -38,17 +38,14 @@ async function registerUser({account_firstname, account_lastnmae, account_email,
 async function findByEmail(account_email) {
     try {
 
-        const query = `
-            SELECT account_id, account_firstname, account_lastnmae, account_email, account_password, account_type
-            FROM public.account
-            WHERE account_email = $1
-        `;
-
-        const result = await pool.query(query, account_email);
+        const result = await pool.query(
+            'SELECT account_id, account_firstname, account_lastnmae, account_email, ' +
+            'account_password, account_type FROM public.account WHERE account_email = $1',
+            [account_email]);
         return result.rows[0];
 
     }catch(error){
-        throw error;
+        return new Error("Not matching email found");
     }
 }
 

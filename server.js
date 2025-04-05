@@ -11,26 +11,17 @@ const pool = require('./database/')
 const env = require("dotenv").config();
 const expressLayouts = require("express-ejs-layouts");
 const app = express();
-const static = require("./routes/static");
 const inventoryRoute = require("./routes/inventoryRoute");
-const errorRoute = require("./routes/errorRoute");
+const flash = require('connect-flash')
 const utilities = require("./utilities/");
+const path = require("path");
 const baseController = require('./controllers/baseController');
-const invController = require('./controllers/invController');
-const errorMiddleware = require("./middleware/errorMiddleware");
 //Body parser
 const bodyParser = require("body-parser");
+// Cookie parser
+const cookieParser = require("cookie-parser");
 
 
-
-
-
-/* ***********************
- * View Engine and Templates
- *************************/
-app.set("view engine", "ejs");
-app.use(expressLayouts);
-app.set("layout", "./layouts/layout")
 
 /* ***********************
  * Middleware
@@ -47,23 +38,41 @@ app.use(session({
 
 }))
 
+// Unit 4,activity
+// Process Registration activity
 app.use(bodyParser.json());
 // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
 
-
-//Express Messages Middleware
-app.use(require('connect-flash')())
-app.use(function(req, res, next) {
+// Unit 4, activity
+// Express Messages Middleware
+app.use(flash());
+/*app.use( function (req, res, next) {
   res.locals.messages = require('express-messages')(req, res);
-  next();
-})
+});*/
 
+app.use(require('connect-flash')())
+app.use(function(req, res, next){
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
+// Unit 5, Login activity
+// Use Cookie Parser
+app.use(cookieParser());
+// Unit 5, Login process activity - JWT Middleware
+app.use(utilities.checkJWTToken);
+
+/* ***********************
+ * View Engine and Templates
+ *************************/
+app.set("view engine", "ejs");
+app.use(expressLayouts);
+app.set("layout", "./layouts/layout")
 
 /* ***********************
  * Routes
  *************************/
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 //Index Route -Unit 3, activity
 app.get("/", utilities.handleErrors(baseController.buildHome));
 //Inventory Routes - Unit 3, activity

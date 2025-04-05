@@ -349,11 +349,13 @@ main, .header, footer, .navbar{
 
 .password-toggle {
     position: absolute;
-    right: -40px;
+    right: -20px;
     top: 55%;
     transform: translateY(-50%);
     cursor: pointer;
     z-index: 10;
+    border: none;
+    background-color: transparent;
 }
 
 .password-toggle img {
@@ -361,6 +363,10 @@ main, .header, footer, .navbar{
 }
 
 /************** Registration view ***************/
+.legend {
+  margin-bottom: 10px;
+}
+
 .registration-container {
   display:flex;
   flex-direction: column;
@@ -435,12 +441,6 @@ main, .header, footer, .navbar{
   font-weight: bold;
 }
 
-
-.password-requirements {
-  padding: 10px;
-  margin: 10px 0;
-
-}
 
 .notice {
   font-size: 15px;
@@ -552,11 +552,6 @@ main, .header, footer, .navbar{
 /********** Error view ***************/
 
 .error-container {
-  background-color: #fff;
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
-  min-height: 65vh;
   overflow: auto;
 }
 
@@ -568,16 +563,40 @@ main, .header, footer, .navbar{
 
 /************* Utilities **************/
 .spacing {
-  margin: 20px;
+  margin: 10px;
 }
 /*********** Error Message **************/
 
+
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 10px;
+  display: block;
+}
+
+input:required:invalid, input:focus:invalid {
+  border-color: #dc3545;
+}
+
+input:required:valid, input:focus:valid {
+  border-color: #28a745;
+}
+
+
+.password-requirements {
+  font-size: 0.875rem;
+  display: block;
+  padding: 10px;
+  margin: 10px 0;
+  color: #333;
+}
+
+
 .alert {
   padding: 10px;
-  border-radius: 4px;
-  border: solid 1px #333;
-  background-color: #f8d7da;
-  width: 300px;
+  width: 400px;
   margin: 0 auto;
 }
 .alert ul {

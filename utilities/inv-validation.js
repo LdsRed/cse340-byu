@@ -3,7 +3,9 @@ const {body, validationResult} = require("express-validator");
 const {max} = require("pg/lib/defaults");
 const invValidator = {};
 
-
+/*  **********************************
+  *  Classification Data Validation Rules
+  * ********************************* */
 
 
 invValidator.classificationRules = () => {
@@ -18,6 +20,11 @@ invValidator.classificationRules = () => {
 
     ]
 }
+
+/* ******************************
+ * Check data and return errors or continue to registration
+ * ***************************** */
+
 invValidator.validateClassification = async  (req, res, next)=>{
 
     const errors = validationResult(req);
@@ -34,7 +41,9 @@ invValidator.validateClassification = async  (req, res, next)=>{
 
 }
 
-
+/*  **********************************
+  *  Inventory Validation Rules
+  * ********************************* */
 
 invValidator.inventoryRules = () => {
 
@@ -80,6 +89,9 @@ invValidator.inventoryRules = () => {
 };
 
 
+/*  **********************************
+  *  Validate Inventory data
+  * ********************************* */
 
 invValidator.validateInventory = async (req, res, next) => {
 

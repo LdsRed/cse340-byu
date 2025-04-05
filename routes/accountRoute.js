@@ -7,7 +7,7 @@ const express = require("express");
 const router = new express.Router();
 const utilities = require("../utilities");
 const accountController = require("../controllers/accountController");
-const regValidate = require("../utilities/account-validation");
+const validate = require("../utilities/account-validation");
 
 
 /* ******************************************
@@ -16,20 +16,39 @@ const regValidate = require("../utilities/account-validation");
 * ******************************************/
 
 // GET /login - Show login page
-router.get("/login", utilities.handleErrors(accountController.buildLogin));
+router.get(
+    "/login",
+    utilities.handleErrors(accountController.buildLogin));
+// Unit 5, Login process activity
 // POST /login - Handle login form submission
-router.post("/login", utilities.handleErrors(accountController.submitLogin));
+router.post(
+    "/login",
+    validate.loginRules(),
+    validate.checkLoginData,
+    utilities.handleErrors(accountController.submitLogin));
+
+// Unit 5, Build Account management view
+router.get(
+    "/",
+    utilities.checkUserLoggedIn,
+    utilities.handleErrors(accountController.buildAccountManagementView));
+
 // GET /logout - Handle user logout
-router.get("/logout", utilities.handleErrors(accountController.logout));
+router.get(
+    "/logout",
+    utilities.handleErrors(accountController.logout));
 
 
 // Registration routes
-router.get("/register", utilities.handleErrors(accountController.buildRegister));
+router.get(
+    "/register",
+    utilities.handleErrors(accountController.buildRegister));
+
 // Register a user
 router.post(
     "/register",
-    regValidate.registationRules(),
-    regValidate.checkRegData,
+    validate.registrationRules(),
+    validate.validateRegistrationData,
     utilities.handleErrors(accountController.registerAccount));
 
 module.exports = router;

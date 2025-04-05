@@ -1,59 +1,123 @@
 <div class="registration-container">
     <h1> <%- title %></h1>
-    <% if (errors) { %>
-        <ul class="notice">
-       <% errors.array().forEach(error => { %>
-         <li><%= error.msg %></li>
-      <%  }) %>
-       </ul>
-      <% } %>
 
+    <div class="spacing">
+        <% if (errors) { %>
+            <div class="notice">
+                <% errors.array().forEach(error => { %>
+                   <% if(error.msg != "Invalid value") { %>
+                        <p><%= error.msg %></p>
+                    <%}%>
+                <%})%>
+            </div>
+        <%}%>
+    </div>
 
+    <form class="registration-form" action="/account/register" method="POST" autocomplete="on">
 
-    <form class="registration-form" action="/account/register" method="POST">
+        <span class="legend">All fields are required *</span>
+
         <div class="form-line-division">
 
+            <!-- Campo First Name -->
             <div class="form-group">
-                <label for="account_firstname">First Name</label>
-                <input type="text" placeholder="First Name" id="account_firstname" name="account_firstname" required>
-            </div>
-            <div class="form-group">
-                <label for="account_lastnmae">Last Name</label>
-                <input type="text" placeholder="Last Name" id="account_lastnmae" name="account_lastnmae" required>
-            </div>
+                <label for="firstName"> First Name</label>
+                <input type="text"
+                       placeholder="First Name"
+                       id="firstName"
+                       name="account_firstname"
+                       title="No spaces or special characters allowed"
+                       required
+                       value=""
+                       aria-describedby="firstname-error"
+                       autocomplete="first-name">
+
+                <div class="error-container">
 
 
-            <div class="form-group">
-                <label for="account_email">Email Address</label>
-                <input type="email" placeholder="Email" id="account_email" name="account_email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                </div>
             </div>
+
+            <!-- Campo Last Name (corregido el nombre del campo) -->
             <div class="form-group">
-                <label for="account_password">Password</label>
+                <label for="lastName">Last Name</label>
+                <input type="text"
+                       placeholder="Last Name"
+                       id="lastName"
+                       name="account_lastname"
+                       required
+                       value=""
+                       aria-describedby="lastname-error"
+                       autocomplete="last-name">
+                <div class="error-container">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email"
+                       placeholder="Enter a valid email address"
+                       id="email"
+                       name="account_email"
+                       required
+                       pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                       title="Please enter a valid email address (e.g., user@example.com)"
+                       value="<%= locals.account_email || '' %>"
+                       autocomplete="email"
+                       aria-describedby="email-error">
+
+                <div class="error-container">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="accountPassword">Password</label>
                 <div class="password-container">
-                    <input type="password" placeholder="Password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
-                    <span class="password-toggle">
-                        <img src="/images/eye-close.png" id="first-eyeicon">
+                    <input type="password"
+                           placeholder="Password"
+                           id="accountPassword"
+                           name="account_password"
+                           required
+                           pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+                           aria-describedby="password-error"
+                           autocomplete="new-password">
+
+                    <button type="button" class="password-toggle" id="togglePassword">
+                        <img src="/images/eye-close.png" id="first-eyeIcon">
+                    </button>
+                </div>
+                <div class="error-container">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="password-container">
+                    <input type="password"
+                           placeholder="Confirm Password"
+                           id="confirmPassword"
+                           name="confirm_password"
+                           required
+                           pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+                           aria-describedby="confirm-password-error"
+                           autocomplete="new-password">
+
+                    <button type="button" class="password-toggle" id="toggleConfirmPassword">
+                        <img src="/images/eye-close.png" id="second-eyeIcon">
+                    </button>
+                </div>
+                <div class="error-container">
+
+
+                    <span class="password-requirements">
+                        Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter, and 1 special character.
                     </span>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="confirm-password">Confirm Password</label>
-                <div class="password-container">
-                    <input type="password" placeholder="Confirm Password" id="confirm-password" name="confirm_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
-                    <span class="password-toggle">
-                        <img src="/images/eye-close.png" id="second-eyeicon">
-                    </span>
-                </div>
-
-                <span class="password-requirements">Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span> 
-
-            </div>
-            <% if (locals.error) { %>
-                <div class="error-message">
-                    <%= error %>
-                </div>
-            <% } %>
             <div class="register-btn">
                 <button type="submit">Register</button>
             </div>
@@ -62,5 +126,4 @@
             </div>
         </div>
     </form>
-    
 </div>

@@ -1,26 +1,47 @@
 <div class="login-container">
-    <h2> <%- title %></h2>
-    
-    <form class="login-form" action="/login" method="POST">
+    <h1> <%- title %></h1>
+
+    <div class="spacing">
+        <% if (errors) { %>
+            <div class="notice">
+                <% errors.array().forEach(error => { %>
+                    <% if(error.msg != "Invalid value") { %>
+                        <p><%= error.msg %></p>
+                        <p><%= error.%></p>
+                    <%}%>
+                <%})%>
+            </div>
+        <%}%>
+    </div>
+
+
+    <form id="loginForm" class="login-form" action="/account/login" method="POST">
         <div class="form-line-division">
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" placeholder="Email Address" id="email" name="account_email" required>
+                <input type="email"
+                       placeholder="Email Address"
+                       id="email"
+                       name="account_email"
+                       autocomplete="username"
+                       value=""
+                       required>
             </div>
             <div class="form-group">
-                <label for="account_password">Password:</label>
+                <label for="password">Password:</label>
                 <div class="password-container">
-                    <input type="password" placeholder="Password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
-                    <span class="password-toggle">
+                    <input type="password" placeholder="Password"
+                           id="password"
+                           name="account_password"
+                           autocomplete="current-password"
+                           required
+                           pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+                    <button type="button"  class="password-toggle">
                         <img src="/images/eye-close.png" id="eyeicon">
-                    </span>
+                    </button>
                 </div>
             </div>
-            <% if (locals.error) { %>
-                <div class="error-message">
-                    <%= error %>
-                </div>
-            <% } %>
+
             <div class="login-btn">
                 <button type="submit" id="submitBtn">Login</button>
             </div>

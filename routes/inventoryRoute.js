@@ -24,6 +24,10 @@ router.get("/", handleErrors(invController.buildVehicleManagementView));
 //Add Classification routes
 router.get("/add-classification", handleErrors(invController.buildAddClassificationView));
 
+// Delete a classification
+router.delete("/delete-classification", handleErrors(invController.deleteClassification))
+
+
 // Add a new classification
 router.post("/add-classification",
     classificationRules(),
@@ -32,6 +36,8 @@ router.post("/add-classification",
 
 //Add Inventory routes
 router.get("/add-inventory", handleErrors(invController.buildAddVehicleInventoryView));
+
+
 
 // Add a new inventory
 router.post("/add-inventory",
