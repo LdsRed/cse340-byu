@@ -8,7 +8,7 @@
 const express = require('express');
 const session = require('express-session');
 const pool = require('./database/')
-const env = require("dotenv").config();
+require("dotenv").config();
 const expressLayouts = require("express-ejs-layouts");
 const app = express();
 const inventoryRoute = require("./routes/inventoryRoute");
@@ -43,6 +43,10 @@ app.use(session({
 app.use(bodyParser.json());
 // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
+// Unit 5, Login activity
+// Use Cookie Parser
+app.use(cookieParser());
+
 
 // Unit 4, activity
 // Express Messages Middleware
@@ -50,15 +54,14 @@ app.use(flash());
 /*app.use( function (req, res, next) {
   res.locals.messages = require('express-messages')(req, res);
 });*/
-
-app.use(require('connect-flash')())
 app.use(function(req, res, next){
-  res.locals.messages = require('express-messages')(req, res)
+  res.locals.success = req.flash('success')[0];
+  res.locals.notice = req.flash('notice')[0];
+  res.locals.error = req.flash('error');
+  res.locals.fieldErrors = req.flash('fieldErrors')[0] || {};
+  res.locals.oldData = req.flash('oldData') [0] || {};
   next()
 })
-// Unit 5, Login activity
-// Use Cookie Parser
-app.use(cookieParser());
 // Unit 5, Login process activity - JWT Middleware
 app.use(utilities.checkJWTToken);
 
@@ -80,6 +83,8 @@ app.use("/inv", inventoryRoute);
 // Inventory details route - Unit 3, activity
 // Account routes - Unit 4, activity
 app.use("/account", require("./routes/accountRoute"));
+
+app.use("/profile", require("./routes/profileRoute"))
 
 
 /* ***********************

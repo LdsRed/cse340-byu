@@ -1,0 +1,35 @@
+<div class="logout-container">
+    <h1> <%- title %></h1>
+
+    <div class="spacing">
+        <!-- Mensajes Flash -->
+        <% if (success) { %>
+            <div class="alert alert-success">
+                <%= success %>
+            </div>
+        <% } %>
+
+        <% if (notice) { %>
+            <div class="alert alert-info">
+                <%= notice %>
+            </div>
+        <% } %>
+
+        <% if (error && error.length) { %>
+            <div class="alert alert-danger">
+                <% error.forEach(err => { %>
+                    <p><%= err %></p>
+                <% }); %>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="text-center">
+        <a href="/account/logout-view" class="btn btn-outline-danger btn-lg mr-3">
+            <i class="fas fa-power-off"></i> Sign out
+        </a>
+        <a href="/" class="btn btn-outline-primary btn-lg">
+            <i class="fas fa-arrow-left"></i> Home
+        </a>
+    </div>
+</div>

@@ -15,12 +15,24 @@
   padding: 20px 20px;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
+
 }
 
 .logo {
   font-size: 24px;
   font-weight: bold;
-  
+  margin-right: 10px;
+}
+
+/********************** account *********************/
+.account {
+  display: flex;
+  flex-direction: column;
+}
+.btn-group{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .logo a {
@@ -362,9 +374,22 @@ main, .header, footer, .navbar{
   width: 30%;
 }
 
+/************** Logout View *********************/
+
+.logout-container{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 /************** Registration view ***************/
 .legend {
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 .registration-container {
@@ -459,7 +484,7 @@ main, .header, footer, .navbar{
   text-align: center;
   background-color: #fff;
   max-width: 1200px;
-  height:70vh;
+  height:auto;
   margin: 0 auto;
 }
 
@@ -481,6 +506,50 @@ main, .header, footer, .navbar{
   margin: 0 auto;
 }
 
+.inv-management {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background-color: #a4b925;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(128, 128, 128, 0.5);
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.select-classification {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  background-color: #333;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(128, 128, 128, 0.5);
+  max-width: 200px;
+  width: 100%;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.classification-p {
+  padding: 0px;
+}
+
+.inventoryDisplay {
+  margin: 10px;
+  padding: 10px;
+  background-color: #333;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(128, 128, 128, 0.5);
+  max-width: 350px;
+  width: 100%;
+  color: #fff;
+}
+.inventoryDisplay > * {
+  padding: 5px;
+}
 /************** Add Classification view ***************/
 .add-classification-form {
   color: #fff;
@@ -553,6 +622,12 @@ main, .header, footer, .navbar{
 
 .error-container {
   overflow: auto;
+  background-color: #fff;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
 .error-container h1, p {
@@ -653,6 +728,16 @@ footer a:hover {
     justify-content: space-between;
     padding: 20px 40px;
 
+  }
+
+  .btn-group{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .btn-group > * {
+    margin: 0 10px;
   }
 
   .navbar ul {

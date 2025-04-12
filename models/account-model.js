@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 /* ***************************
  * Create the user in the DB
  * ************************** */
-async function registerUser({account_firstname, account_lastnmae, account_email, account_password}){
+async function registerUser({account_firstname, account_lastname, account_email, account_password}){
 
     try{
         //Hash the password
@@ -13,12 +13,12 @@ async function registerUser({account_firstname, account_lastnmae, account_email,
         const hashedPassword = await bcrypt.hash(account_password, salt);
 
         const query = `
-            INSERT INTO account (account_firstname, account_lastnmae, account_email, account_password, account_type)
+            INSERT INTO account (account_firstname, account_lastname, account_email, account_password, account_type)
             VALUES ($1, $2, $3, $4, 'Client')
             RETURNING *
         `;
         
-        const values = [account_firstname, account_lastnmae, account_email, hashedPassword];
+        const values = [account_firstname, account_lastname, account_email, hashedPassword];
         const result = await pool.query(query, values);
 
         return result.rows[0];
@@ -39,7 +39,7 @@ async function findByEmail(account_email) {
     try {
 
         const result = await pool.query(
-            'SELECT account_id, account_firstname, account_lastnmae, account_email, ' +
+            'SELECT account_id, account_firstname, account_lastname, account_email, ' +
             'account_password, account_type FROM public.account WHERE account_email = $1',
             [account_email]);
         return result.rows[0];

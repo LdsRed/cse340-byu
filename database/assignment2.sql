@@ -1,7 +1,7 @@
 
 -- 1) INSERT A NEW VALUE TO THE ACCOUNT TABLE
 INSERT INTO public.account (account_firstname,
-							account_lastnmae,
+							account_lastname,
 							account_email,
 							account_password,
 							account_type)

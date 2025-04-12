@@ -2,15 +2,16 @@
     <h1> <%- title %></h1>
 
     <div class="spacing">
-        <% if (errors) { %>
-            <div class="notice">
-                <% errors.array().forEach(error => { %>
-                   <% if(error.msg != "Invalid value") { %>
-                        <p><%= error.msg %></p>
-                    <%}%>
-                <%})%>
+        <% if(notice){%>
+            <div class="alert alert-success">
+                <%= notice %>
             </div>
-        <%}%>
+        <% } %>
+        <% if(error){%>
+            <div class="alert alert-danger">
+                <%= error %>
+            </div>
+        <% } %>
     </div>
 
     <form class="registration-form" action="/account/register" method="POST" autocomplete="on">
@@ -26,15 +27,19 @@
                        placeholder="First Name"
                        id="firstName"
                        name="account_firstname"
-                       title="No spaces or special characters allowed"
                        required
-                       value=""
+                       value="<%= locals.account_firstname || '' %>"
                        aria-describedby="firstname-error"
                        autocomplete="first-name">
 
                 <div class="error-container">
-
-
+                    <% if(fieldErrors.account_firstname) {%>
+                        <div class="invalid-feedback">
+                            <% fieldErrors.account_firstname.forEach(error => { %>
+                                <p class="error-message"> <%= error %></p>
+                            <% }); %>
+                        </div>
+                    <% } %>
                 </div>
             </div>
 
@@ -46,13 +51,22 @@
                        id="lastName"
                        name="account_lastname"
                        required
-                       value=""
+                       value="<%= locals.account_lastname || '' %>"
                        aria-describedby="lastname-error"
                        autocomplete="last-name">
-                <div class="error-container">
-
-                </div>
+                <div class="error-container"></div>
             </div>
+            
+            <div class="error-container">
+                <% if(fieldErrors.account_lastname) {%>
+                    <div class="invalid-feedback">
+                        <% fieldErrors.account_lastname.forEach(error => { %>
+                            <p class="error-message"> <%= error %></p>
+                        <% }); %>
+                    </div>
+                <% } %>
+            </div>
+
 
             <div class="form-group">
                 <label for="email">Email Address</label>
@@ -62,13 +76,18 @@
                        name="account_email"
                        required
                        pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
-                       title="Please enter a valid email address (e.g., user@example.com)"
                        value="<%= locals.account_email || '' %>"
                        autocomplete="email"
                        aria-describedby="email-error">
 
                 <div class="error-container">
-
+                    <% if(fieldErrors.account_email) {%>
+                        <div class="invalid-feedback">
+                            <% fieldErrors.account_email.forEach(error => { %>
+                                <p class="error-message"> <%= error %></p>
+                            <% }); %>
+                        </div>
+                    <% } %>
                 </div>
             </div>
 
@@ -89,7 +108,13 @@
                     </button>
                 </div>
                 <div class="error-container">
-
+                    <% if(fieldErrors.account_password) {%>
+                        <div class="invalid-feedback">
+                            <% fieldErrors.account_password.forEach(error => { %>
+                                <p class="error-message"> <%= error %></p>
+                            <% }); %>
+                        </div>
+                    <% } %>
                 </div>
             </div>
 
@@ -109,13 +134,24 @@
                         <img src="/images/eye-close.png" id="second-eyeIcon">
                     </button>
                 </div>
+
+
                 <div class="error-container">
-
-
-                    <span class="password-requirements">
-                        Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter, and 1 special character.
-                    </span>
+                    <% if(fieldErrors.confirm_password) {%>
+                        <div class="invalid-feedback">
+                            <% fieldErrors  .confirm_password.forEach(error => { %>
+                                <p class="error-message"> <%= error %></p>
+                            <% }); %>
+                        </div>
+                    <% } %>
                 </div>
+
+                <span class="password-requirements">
+                        Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter, and 1 special character.
+                </span>
+
+
+
             </div>
 
             <div class="register-btn">

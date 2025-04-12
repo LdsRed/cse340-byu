@@ -84,7 +84,7 @@ Util.buildInventoryDetail = async function(vehicleData){
 Util.buildClassificationList = async function(classification_id = null){
   let data = await invModel.getClassifications();
   let classificationList =
-      `<select name="classification_id" id="classificationId"   required>`
+      `<select name="classification_id" id="classificationList"  class="select-classification" required>`
 
   classificationList +=
       "<option value=''> Choose a Classification </option>";
@@ -142,11 +142,21 @@ Util.checkJWTToken = (req, res, next) => {
 
 Util.checkUserLoggedIn = (req, res, next) => {
   if(res.locals.loggedin){
+    req.flash("notice", "You are already logged in.");
     next();
   }else {
-    req.flash("notice", "Please, log in.");
-    return res.redirect("/account/login");
+      req.flash("notice", "Please, log in.");
+      return res.redirect("/account/login");
   }
+
+}
+
+Util.checkNotLogged = (req, res, next) => {
+  if(res.locals.loggedin){
+    req.flash("notice", "You are already logged in, do you want to log out?");
+    return res.redirect("/account/logout-view");
+  }
+  next();
 }
 
 

@@ -18,13 +18,21 @@ const validate = require("../utilities/account-validation");
 // GET /login - Show login page
 router.get(
     "/login",
+    utilities.checkNotLogged,
     utilities.handleErrors(accountController.buildLogin));
 // Unit 5, Login process activity
 // POST /login - Handle login form submission
+
+router.get(
+    "/logout-view",
+    utilities.checkUserLoggedIn,
+    utilities.handleErrors(accountController.buildLogoutView));
+
 router.post(
     "/login",
-    validate.loginRules(),
+    ...validate.loginRules(),
     validate.checkLoginData,
+    validate.checkLoginCredentials,
     utilities.handleErrors(accountController.submitLogin));
 
 // Unit 5, Build Account management view
@@ -47,7 +55,7 @@ router.get(
 // Register a user
 router.post(
     "/register",
-    validate.registrationRules(),
+    ...validate.registrationRules(),
     validate.validateRegistrationData,
     utilities.handleErrors(accountController.registerAccount));
 
