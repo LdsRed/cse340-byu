@@ -32,6 +32,7 @@ router.get(
 //Add Classification routes
 router.get(
     "/add-classification",
+    utilities.checkUserLoggedIn,
     handleErrors(invController.buildAddClassificationView));
 
 // Delete a classification
@@ -47,6 +48,7 @@ router.post("/add-classification",
 //Add Inventory routes
 router.get(
     "/add-inventory",
+    utilities.checkUserLoggedIn,
     handleErrors(invController.buildAddVehicleInventoryView));
 
 
@@ -58,6 +60,12 @@ router.post(
     validateInventory,
     handleErrors(invController.addInventory));
 
+// update inventory
+router.post(
+    "/edit-inventory/",
+    inventoryRules(),
+    validateInventory,
+    handleErrors(invController.updateInventory));
 
 router.get(
     "/getInventory/:classification_id",

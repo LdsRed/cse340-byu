@@ -16,7 +16,7 @@
         <% } %>
     </div>
     <div class="spacing">
-        <form class="add-vehicle-form" action="/inv/update" method="post">
+        <form class="add-vehicle-form" action="/inv/update" method="post" id="updateForm">
             <div class="inv-form-group">
                 <label for="classification_id">Select Classification </label>
                 <%- classificationList %>
@@ -80,6 +80,11 @@
             <div class="add-vehicle-btn">
                 <button type="submit" name="submit" class="btn btn-primary">Update Vehicle</button>
             </div>
+
+
+            <input type="hidden" name="inv_id"
+            <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+                    <% } %>>
         </form>
     </div>
 </div>

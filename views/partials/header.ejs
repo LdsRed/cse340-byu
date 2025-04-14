@@ -4,15 +4,23 @@
     </span>
     <div class="account d-flex align-items-center">
         <div class="btn-group" role="group">
-            <a href="/account/login" class="btn btn-outline-primary btn-sm mx-1" title="Click to log in">
-                <i class="fas fa-sign-in-alt"></i> Sign in
-            </a>
-            <a href="/account/register" class="btn btn-primary btn-sm mx-1" title="Click to register">
-                <i class="fas fa-user-plus"></i> Sign up
-            </a>
-            <a href="/profile/profile" class="btn btn-outline-secondary btn-sm mx-1" title="Click to profile">
+          <% if(locals.user) {%>
+                <a href="/account/management" class="btn btn-outline-primary btn-sm mx-1" title="Click to Account Management">
+                    <i class="fas fa-sign-in-alt"></i> Welcome, <%= locals.user.account_firstname %>
+                </a>
+                <a href="/profile/profile" class="btn btn-outline-secondary btn-sm mx-1" title="Click to profile">
                 <i class="fas fa-user-circle"></i> My Account
-            </a>
+                </a>
+
+                <a href="/account/register" class="btn btn-primary btn-sm mx-1" title="Click to Logout">
+                    <i class="fas fa-user-plus"></i> Logout
+                </a>
+          <& } else { %>
+
+                <a href="/account/login" class="btn btn-outline-primary btn-sm mx-1" title="Click to log in">
+                    <i class="fas fa-sign-in-alt"></i> Sign in
+                </a>
+          <% }%>
         </div>
     </div>
   </header>
