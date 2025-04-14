@@ -8,13 +8,13 @@ require("dotenv").config()
  * *************** */
 
 
-const isDev = process.env.DATABASE_URL;
+const isDev = process.env.NODE_ENV === "development";
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: isDev ? false : {
-      rejectUnauthorized: false,
-    },
-})
+    ssl: isDev
+        ? false
+        : { rejectUnauthorized: false },
+});
 
 // Added for troubleshooting queries
 // during development
@@ -25,7 +25,7 @@ module.exports = {
       if(isDev){
         console.log("executed query", { text })
       }
-      return res
+      return res;
     }catch (error) {
       console.error("error in query", { text })
       throw error
