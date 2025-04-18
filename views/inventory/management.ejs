@@ -1,17 +1,22 @@
 <div class="inv-management-container">
     <h1> <%- title %></h1>
 
-    <% if (locals.message) { %>
-        <div class="flash-message <%= message.type %>">
-            <%= message.message %>
+    <div class="spacing">
+        <div class="alert alert-danger">
+            <!-- Message Block -->
+            <%- messages() %> <% if (errors) { %>
+                <ul class="notice">
+                    <% errors.array().forEach(error => { %>
+                        <li><%= error.msg %></li>
+                    <% }) %>
+                </ul>
+            <% } %>
         </div>
-    <% } %>
-
-        <div class="management-links">
+    </div>
+    <div class="management-links">
             <span> <a href="/inv/add-classification" class="btn">Add new classification</a> </span>
             <span> <a href="/inv/add-inventory" class="btn">Add new inventory</a> </span>
-        </div>
-
+    </div>
 
     <div class="spacing">
 

@@ -6,13 +6,13 @@
 
     <div class="spacing">
         <div class="alert alert-danger">
-            <% if (locals.errors && errors.length > 0) { %>
-                    <ul>
-                        <% errors.forEach(error => { %>
-                            <li><%= error.msg %></li>
-                        <% }); %>
-                    </ul>
-                </div>
+            <!-- Message Block -->
+            <%- messages() %> <% if (errors) { %>
+                <ul class="notice">
+                    <% errors.array().forEach(error => { %>
+                        <li><%= error.msg %></li>
+                    <% }) %>
+                </ul>
             <% } %>
         </div>
     </div>

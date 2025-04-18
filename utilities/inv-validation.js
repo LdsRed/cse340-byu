@@ -132,6 +132,20 @@ invValidator.validateInventory = async (req, res, next) => {
 
 
 
+/*  **********************************
+  *  Rules for Updated Inventory
+  * ********************************* */
+
+invValidator.newInventoryRules = () => {
+    return [
+        ...invValidator.inventoryRules(),
+
+        body("inv_id")
+            .notEmpty().withMessage("Inventory ID is required")
+    ];
+};
+
+
 
 /*  **********************************
   *  If there are errors, the user will be redirected to the Edit view
@@ -152,7 +166,7 @@ invValidator.checkUpdateData = async (req, res, next) => {
 
         // Prepare view data with sticky form values
         const viewData = {
-            title: "Add Inventory",
+            title: "Edit Inventory",
             nav: await utilities.getNav(),
             errors: errors.array(),
             message: null,
@@ -173,7 +187,7 @@ invValidator.checkUpdateData = async (req, res, next) => {
         return res.render("./inventory/edit-inventory", viewData);
     }
     next();
-}
+};
 
 
 module.exports = invValidator;

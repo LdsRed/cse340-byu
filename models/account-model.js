@@ -80,4 +80,42 @@ async function comparePassword(account_password, hashedPassword){
     return isMatch;
 }
 
-module.exports = {registerUser, comparePassword, findByEmail, findById}
+
+/* ***********************
+ * Update User Account Information
+ *************************/
+async function updateAccountInfo(account_firstname, account_lastname, account_email, account_id) {
+    try {
+        const sql = `UPDATE account SET account_firstname = $1, account_lastname = $2, account_email = $3 WHERE account_id = $4 RETURNING *`
+        const data = await pool.query(sql, [account_firstname, account_lastname, account_email, account_id])
+        return data.rows[0]
+    } catch (error) {
+        console.error('model error: ' + error)
+    }
+}
+
+/* *****************************
+ *   Update User Password
+ * *************************** */
+async function updatePassword(account_password, account_id) {
+    try {
+        const sql = `UPDATE account SET account_password = $1 WHERE account_id = $2 RETURNING *`
+        const data = await pool.query(sql, [account_password, account_id])
+        if (data.rowCount === 0) {
+            throw new Error('No account found with the provided ID')
+        }
+        return data.rows[0]
+    } catch (error) {
+        console.error('Error updating password:', error)
+        throw new Error('Failed to update password')
+    }
+}
+
+module.exports = {
+    registerUser,
+    comparePassword,
+    findByEmail,
+    findById,
+    updateAccountInfo,
+    updatePassword
+}

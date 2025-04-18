@@ -2,19 +2,20 @@
     <h1> <%- title %></h1>
 
     <div class="spacing">
-        <% if(notice){%>
-            <div class="alert alert-success">
-                <%= notice %>
-            </div>
-        <% } %>
-        <% if(error){%>
-            <div class="alert alert-danger">
-                <%= error %>
-            </div>
+        <!-- Message Block -->
+        <% if (errors) { %>
+            <ul class="notice">
+                <% errors.array().forEach(error => { %>
+
+                    <% if(error.msg != "Invalid value") {%>
+                        <li><%= error.msg %></li>
+                    <%}%>
+                <% }) %>
+            </ul>
         <% } %>
     </div>
 
-    <form class="registration-form" action="/account/register" method="POST" autocomplete="on">
+    <form class="registration-form" action="/account/registration" method="POST" autocomplete="on">
 
         <span class="legend">All fields are required *</span>
 
@@ -32,15 +33,6 @@
                        aria-describedby="firstname-error"
                        autocomplete="first-name">
 
-                <div class="error-container">
-                    <% if(fieldErrors.account_firstname) {%>
-                        <div class="invalid-feedback">
-                            <% fieldErrors.account_firstname.forEach(error => { %>
-                                <p class="error-message"> <%= error %></p>
-                            <% }); %>
-                        </div>
-                    <% } %>
-                </div>
             </div>
 
             <!-- Campo Last Name (corregido el nombre del campo) -->
@@ -57,15 +49,7 @@
                 <div class="error-container"></div>
             </div>
             
-            <div class="error-container">
-                <% if(fieldErrors.account_lastname) {%>
-                    <div class="invalid-feedback">
-                        <% fieldErrors.account_lastname.forEach(error => { %>
-                            <p class="error-message"> <%= error %></p>
-                        <% }); %>
-                    </div>
-                <% } %>
-            </div>
+
 
 
             <div class="form-group">
@@ -80,15 +64,7 @@
                        autocomplete="email"
                        aria-describedby="email-error">
 
-                <div class="error-container">
-                    <% if(fieldErrors.account_email) {%>
-                        <div class="invalid-feedback">
-                            <% fieldErrors.account_email.forEach(error => { %>
-                                <p class="error-message"> <%= error %></p>
-                            <% }); %>
-                        </div>
-                    <% } %>
-                </div>
+
             </div>
 
             <div class="form-group">
@@ -107,15 +83,7 @@
                         <img src="/images/eye-close.png" id="first-eyeIcon">
                     </button>
                 </div>
-                <div class="error-container">
-                    <% if(fieldErrors.account_password) {%>
-                        <div class="invalid-feedback">
-                            <% fieldErrors.account_password.forEach(error => { %>
-                                <p class="error-message"> <%= error %></p>
-                            <% }); %>
-                        </div>
-                    <% } %>
-                </div>
+
             </div>
 
             <div class="form-group">
@@ -136,15 +104,7 @@
                 </div>
 
 
-                <div class="error-container">
-                    <% if(fieldErrors.confirm_password) {%>
-                        <div class="invalid-feedback">
-                            <% fieldErrors  .confirm_password.forEach(error => { %>
-                                <p class="error-message"> <%= error %></p>
-                            <% }); %>
-                        </div>
-                    <% } %>
-                </div>
+
 
                 <span class="password-requirements">
                         Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter, and 1 special character.
@@ -163,3 +123,5 @@
         </div>
     </form>
 </div>
+<script src="/js/view-password-login.js"></script>
+<script src="/js/show-password-register.js"></script>

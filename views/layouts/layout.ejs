@@ -1,27 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+    <%- include('../partials/head') %>
+    <body>
+        <div class="header-container">
+            <%- include('../partials/header') %>
+        </div>
+        <div class="navbar-container">
+            <%- include('../partials/navigation') %>
+        </div>
+        <div class="main-content">
+            <%- body %>
+        </div>
+        <div class="footer-container">
+            <%- include('../partials/footer') %>
+        </div>
 
-<%- include('../partials/head') %>
-
-<body>
-
-    <div class="header-container">
-        <%- include('../partials/header') %>
-    </div>
-
-    <div class="navbar-container">
-        <%- include('../partials/navigation') %>
-    </div>
-    
-    <div class="main-content">
-        <%- body %>
-    </div>
-
-    <div class="footer-container">
-        <%- include('../partials/footer') %>
-    </div>
-
-<script src="/js/view-password-login.js"></script>
-<script src="/js/show-password-register.js"></script>
-</body>
+    </body>
 </html>

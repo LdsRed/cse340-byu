@@ -7,13 +7,9 @@ require("dotenv").config()
  * If - else will make determination which to use
  * *************** */
 
-
-const isDev = process.env.NODE_ENV === "development";
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: isDev
-        ? false
-        : { rejectUnauthorized: false },
+    ssl: { rejectUnauthorized: false }
 });
 
 // Added for troubleshooting queries
@@ -22,9 +18,9 @@ module.exports = {
   async query(text, params) {
     try {
       const res = await pool.query(text, params)
-      if(isDev){
-        console.log("executed query", { text })
-      }
+
+      console.log("executed query", { text })
+
       return res;
     }catch (error) {
       console.error("error in query", { text })
